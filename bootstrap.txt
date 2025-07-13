@@ -1,0 +1,19 @@
+<div class = container> - used to center and pad contents
+
+text-center - center text
+text-primary - blue color text
+text-danger - red color
+text-warning - yellow
+text-muted - faded gray
+
+<button class = "btn btn-primary">submit</button>
+btn-sucess - green button
+btn-warning - yellow button
+dtn-danger - red
+
+<input type = "text" class = "form control">
+
+<div class = alert alert-danger> Error</div>
+alert-warning, alert-success, alert-info
+
+mt-3, mt-4,mb-2, p-2.... - margin top, margin bottom and padding used for spacing
