@@ -13,3 +13,10 @@ A Flask-based web application to manage and evaluate student placement eligibili
 - Data stored using **SQLite3**
 - Sl. No. and **sorted view by Roll Number**
 - Responsive UI with Bootstrap 5
+
+# To Run This
+
+git clone https://github.com/Abhinav-1303/Placement_Eligibility_app.git
+cd Placement_Eligibility_app
+pip install flask
+python sqlite_app.py
