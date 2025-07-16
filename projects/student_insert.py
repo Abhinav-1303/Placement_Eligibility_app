@@ -1,0 +1,53 @@
+import sqlite3
+
+students = [
+    ["Ben Hector",6,"Cyber Security",8.8,"Eligible for placement","A"],
+    ["Rohit",100,"Mechanical",9.45,"Eligible for placement","A+"],
+    ["Manoj",101,"IT",7.12,"Eligible for placement","B+"],
+    ["Sanjay",102,"Cyber Security",5.65,"Not Eligible for placement","C"],
+    ["Sneha",103,"Civil",8.0,"Eligible for placement","A"],
+    ["Kiran",104,"Cyber Security",8.28,"Eligible for placement","A"],
+    ["Manoj",105,"Cyber Security",4.79,"Not Eligible for placement","D"],
+    ["Kavya",106,"ECE",6.21,"Not Eligible for placement","B"],
+    ["Kavya",107,"Mechanical",3.21,"Not Eligible for placement","F"],
+    ["Ishita",108,"IT",3.43,"Not Eligible for placement","F"],
+    ["Gaurav",109,"Cyber Security",7.67,"Eligible for placement","B+"],
+    ["Rakesh",110,"ECE",4.83,"Not Eligible for placement","D"],
+    ["Vivek",111,"IT",9.18,"Eligible for placement","A+"],
+    ["Neha",112,"Cyber Security",7.23,"Eligible for placement","B+"],
+    ["Anjali",113,"Civil",9.4,"Eligible for placement","A+"],
+    ["Deepti",114,"CSE",3.01,"Not Eligible for placement","F"],
+    ["Rohit",115,"Mechanical",3.39,"Not Eligible for placement","F"],
+    ["Pranav",116,"EEE",5.28,"Not Eligible for placement","C"],
+    ["Deepti",117,"CSE",8.47,"Eligible for placement","A"],
+    ["Anjali",118,"IT",4.09,"Not Eligible for placement","D"],
+    ["Ravi",119,"Mechanical",8.32,"Eligible for placement","A"],
+    ["Ravi",120,"Mechanical",9.59,"Eligible for placement","A+"],
+    ["Amit",121,"ECE",4.32,"Not Eligible for placement","D"],
+    ["Meera",122,"IT",9.22,"Eligible for placement","A+"],
+    ["Neha",123,"EEE",8.9,"Eligible for placement","A"],
+    ["Shreya",124,"Cyber Security",7.77,"Eligible for placement","B+"],
+    ["Manoj",125,"ECE",9.61,"Eligible for placement","A+"],
+    ["Anjali",126,"EEE",6.91,"Not Eligible for placement","B"],
+    ["Sneha",127,"ECE",9.62,"Eligible for placement","A+"],
+    ["Anita",128,"Civil",6.44,"Not Eligible for placement","B"],
+    ["Shreya",129,"Cyber Security",5.69,"Not Eligible for placement","C"],
+    ["Swathi",100,"Mechanical",7.35,"Eligible for placement","B+"]
+]
+
+# Connect to your database
+conn = sqlite3.connect("Students.db")
+cursor = conn.cursor()
+
+# Insert all students (skip 'id' because it's auto-increment)
+insert_query = """
+INSERT INTO Students (Name, Roll_Number, Department, CGPA, Eligibility, Grade)
+VALUES (?, ?, ?, ?, ?, ?)
+"""
+
+cursor.executemany(insert_query, students)
+
+conn.commit()
+conn.close()
+
+print("✅ Successfully inserted 31 students into Students.db")

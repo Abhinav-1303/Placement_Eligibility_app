@@ -51,9 +51,9 @@ def result():
     return render_template('result.html', Name = Name, Roll_Number = Roll_Number, Department = Department, CGPA = CGPA,
                             Eligible = Eligible, Grade = Grade)
 
-@app.route('/students', methods = ['GET'])
+@app.route('/students', methods=['GET'])
 def view_students():
-    search =  request.args.get('search', '',).lower()
+    search = request.args.get('search', '').lower()
     selected_filter = request.args.get('filter_status', '')
 
     conn = sqlite3.connect('Students.db')
@@ -64,17 +64,24 @@ def view_students():
 
     if search:
         query += " AND (LOWER(Name) LIKE ? OR LOWER(Roll_Number) LIKE ?)"
-        params.extend([f"%{ search }%",f"%{ search }%"])
+        params.extend([f"%{search}%", f"%{search}%"])
 
     if selected_filter:
         query += " AND Eligibility = ?"
         params.append(selected_filter)
 
+    query += " ORDER BY CAST(Roll_Number AS INTEGER) ASC"  # ✅ Sort by roll number
+
     cur.execute(query, params)
-    students = cur.fetchall()
+    fetched_students = cur.fetchall()  # ✅ store as fetched_students
 
     conn.close()
-    return render_template('students.html', students = students, search = search, selected_filter = selected_filter)
+
+    students = []
+    for i, student in enumerate(fetched_students, start=1):
+        students.append([i] + list(student))  # ✅ Add Sl. No. to beginning
+
+    return render_template('students.html', students=students, search=search, selected_filter=selected_filter)
 
 
 @app.route('/edit/<int:id>', methods = ['GET', 'POST'])
@@ -124,7 +131,7 @@ def edit_students(id):
     conn.close()
     return render_template('edit.html', student = student)
 
-@app.route('/delete/<int:id>')
+@app.route('/delete/<int:id>', methods = ['POST'])
 def delete_student(id):
     conn = sqlite3.connect('Students.db')
     cur = conn.cursor()
